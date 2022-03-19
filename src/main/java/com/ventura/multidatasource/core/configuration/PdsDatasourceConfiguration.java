@@ -19,7 +19,8 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = {"com.ventura.multidatasource.core.remediation"},
+@EnableJpaRepositories(basePackages = {"com.ventura.multidatasource.core.remediation",
+        "com.ventura.multidatasource.core.plan"},
         entityManagerFactoryRef = "pdsEntityManager",
         transactionManagerRef = "pdsTransactionManager")
 @Configuration
@@ -33,7 +34,7 @@ public class PdsDatasourceConfiguration {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(pdsDataSource());
         em.setPackagesToScan(
-                new String[] { "com.ventura.multidatasource.core.remediation" });
+                new String[] { "com.ventura.multidatasource.core.remediation","com.ventura.multidatasource.core.plan" });
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();
