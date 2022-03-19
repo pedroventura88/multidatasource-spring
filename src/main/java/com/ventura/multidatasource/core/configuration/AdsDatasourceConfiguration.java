@@ -1,5 +1,6 @@
 package com.ventura.multidatasource.core.configuration;
 
+import com.ventura.multidatasource.core.common.AdsPackages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,10 @@ import java.util.HashMap;
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = {"com.ventura.multidatasource.core.preferences"},
+/**
+ * Any new entity that should be stored on ADS database, should be added on basePackages bellow
+ * */
+@EnableJpaRepositories(basePackages = AdsPackages.PREFERENCES,
         entityManagerFactoryRef = "adsEntityManager",
         transactionManagerRef = "adsTransactionManager")
 public class AdsDatasourceConfiguration {
@@ -26,14 +30,19 @@ public class AdsDatasourceConfiguration {
     @Autowired
     private Environment env;
 
+    /**
+     * Any new entity that should be stored on ADS database, should be added on ENTITY_PACKAGES bellow
+     */
+    private final String[] ENTITY_PACKAGES = {AdsPackages.PREFERENCES};
+
+
     @Bean
     @Primary
     public LocalContainerEntityManagerFactoryBean adsEntityManager() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(adsDataSource());
-        em.setPackagesToScan(
-                new String[] { "com.ventura.multidatasource.core.preferences" });
+        em.setPackagesToScan(ENTITY_PACKAGES);
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();

@@ -1,11 +1,10 @@
 package com.ventura.multidatasource.core.configuration;
 
+import com.ventura.multidatasource.core.common.AdsPackages;
+import com.ventura.multidatasource.core.common.PdsPackages;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -19,8 +18,10 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = {"com.ventura.multidatasource.core.remediation",
-        "com.ventura.multidatasource.core.plan"},
+/**
+ * Any new entity that should be stored on PDS database, should be added on basePackages bellow
+ * */
+@EnableJpaRepositories(basePackages = {PdsPackages.REMEDIATION, PdsPackages.PLAN},
         entityManagerFactoryRef = "pdsEntityManager",
         transactionManagerRef = "pdsTransactionManager")
 @Configuration
@@ -28,13 +29,17 @@ public class PdsDatasourceConfiguration {
     @Autowired
     private Environment env;
 
+    /**
+     * Any new entity that should be stored on PDS database, should be added on ENTITY_PACKAGES bellow
+     */
+    private final String[] ENTITY_PACKAGES = {PdsPackages.REMEDIATION, PdsPackages.PLAN};
+
     @Bean
     public LocalContainerEntityManagerFactoryBean pdsEntityManager() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(pdsDataSource());
-        em.setPackagesToScan(
-                new String[] { "com.ventura.multidatasource.core.remediation","com.ventura.multidatasource.core.plan" });
+        em.setPackagesToScan(ENTITY_PACKAGES);
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();
