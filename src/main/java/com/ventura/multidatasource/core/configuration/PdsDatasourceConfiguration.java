@@ -55,10 +55,10 @@ public class PdsDatasourceConfiguration {
         DriverManagerDataSource dataSource
                 = new DriverManagerDataSource();
         dataSource.setDriverClassName(
-                env.getProperty("spring.second-datasource.driverClassName"));
-        dataSource.setUrl(env.getProperty("spring.second-datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.second-datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.second-datasource.password"));
+                env.getProperty("datasource.pds.driverClassName"));
+        dataSource.setUrl(env.getProperty("datasource.pds.url"));
+        dataSource.setUsername(env.getProperty("datasource.pds.username"));
+        dataSource.setPassword(env.getProperty("datasource.pds.password"));
 
         return dataSource;
     }

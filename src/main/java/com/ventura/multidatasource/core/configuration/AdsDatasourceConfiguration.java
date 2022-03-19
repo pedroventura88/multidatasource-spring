@@ -55,10 +55,10 @@ public class AdsDatasourceConfiguration {
         DriverManagerDataSource dataSource
                 = new DriverManagerDataSource();
         dataSource.setDriverClassName(
-                env.getProperty("spring.datasource.driverClassName"));
-        dataSource.setUrl(env.getProperty("spring.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.datasource.password"));
+                env.getProperty("datasource.ads.driverClassName"));
+        dataSource.setUrl(env.getProperty("datasource.ads.url"));
+        dataSource.setUsername(env.getProperty("datasource.ads.username"));
+        dataSource.setPassword(env.getProperty("datasource.ads.password"));
 
         return dataSource;
     }
