@@ -25,4 +25,7 @@ public class UserPreference {
     @Column(name = "option_name")
     private String optionName;
 
+
+    @Column(name = "option_value")
+    private String optionValue;
 }

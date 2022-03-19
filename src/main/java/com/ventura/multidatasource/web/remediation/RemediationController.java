@@ -2,6 +2,7 @@ package com.ventura.multidatasource.web.remediation;
 
 import com.ventura.multidatasource.core.remediation.Remediation;
 import com.ventura.multidatasource.core.remediation.RemediationService;
+import com.ventura.multidatasource.web.remediation.dto.RemediationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class RemediationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Void> saveRemediation(@RequestBody Remediation remediation) {
+    public ResponseEntity<Void> saveRemediation(@RequestBody RemediationDto remediation) {
         return service.createRemediation(remediation);
     }
 }

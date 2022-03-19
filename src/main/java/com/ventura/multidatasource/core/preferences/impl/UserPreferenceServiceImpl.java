@@ -17,10 +17,10 @@ public class UserPreferenceServiceImpl implements UserPreferencesService {
     }
 
     @Override
-    public ResponseEntity<Void> createPreference(UserPreference userPreference) {
+    public ResponseEntity<Void> createPreference(UserPreference userPreferenceDto) {
         UserPreference preferences = UserPreference.builder()
-                .optionName(userPreference.getOptionName())
-                .username(userPreference.getUsername())
+                .optionName(userPreferenceDto.getOptionName())
+                .username(userPreferenceDto.getUsername())
                 .build();
         repository.save(preferences);
         return new ResponseEntity<Void>(HttpStatus.OK);
